@@ -1,5 +1,4 @@
 const fs = require("fs").promises;
-const Messages = require("../constants/messages");
 
 class FileService {
   static async createFolder(folderPath) {
@@ -10,10 +9,9 @@ class FileService {
     }
   }
 
-  static async writeToFile(res, data, filePath) {
+  static async writeToFile(data, filePath) {
     try {
       await fs.writeFile(filePath, JSON.stringify(data));
-      res.status(200).send(Messages.success);
     } catch (err) {
       throw err;
     }
