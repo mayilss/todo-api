@@ -11,6 +11,12 @@ class TodoController {
   async add(req, res) {
     const { body } = req;
 
+    if (!body.title) {
+      return res
+        .status(400)
+        .send(ResponseService.createResponse(400, Messages.titleRequired));
+    }
+
     try {
       const dataArray = await FileService.readFile(filePath);
       dataArray.push({ ...body, id: uuid() });
@@ -103,6 +109,11 @@ class TodoController {
       return res
         .status(400)
         .send(ResponseService.createResponse(400, Messages.noId));
+    }
+    if (!body.title) {
+      return res
+        .status(400)
+        .send(ResponseService.createResponse(400, Messages.titleRequired));
     }
     try {
       const dataArray = await FileService.readFile(filePath);
